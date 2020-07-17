@@ -21,6 +21,7 @@ app.set('views', path.join(__dirname, 'src/view'))
 require('./src/index')(app)
 
 mongoose.connect('mongodb://127.0.0.1:27017/auth', {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.Promise = global.Promise
 
 app.listen(9000, () => {
   console.log('Express has been started')
