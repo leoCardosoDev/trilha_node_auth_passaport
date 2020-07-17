@@ -5,7 +5,7 @@ module.exports = (req, res) => {
   user.password = user.genHash(user.password)
   user.save()
     .then((user) => {
-      return res.redirect('/')
+      return res.redirect('/users')
     })
     .catch((error) => {
       console.log(error)
