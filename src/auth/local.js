@@ -36,4 +36,25 @@ module.exports = (passport) => {
         }).catch(error => callback(error, false))
     }
   ))
+
+  passport.use('local-signin', new LocalStrategy({
+    usernameField: "username",
+    passwordField: "password",
+    passReqToCallback: true
+  }, function (req, username, password, callback) {
+    User.findOne({
+      username
+    }).then((user) => {
+      if (!user) {
+        return callback(null, false)
+      }
+      user.validate(password, (error, result) => {
+        if(!result || error){
+          return callback(null, false)
+        }
+        return callback(null, user)
+      })
+    }).catch(error => callback(error, false))
+  }))
+
 }
